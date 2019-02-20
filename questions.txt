@@ -1,0 +1,17 @@
+1) What color is grass?
+a) Red
+b) Green
+c) Yellow
+d) Blue
+
+2) How many eggs in a dozen?
+a) 5
+b) 7
+c) 2
+d) 12
+
+3) How many meters in 3 kilometers?
+a) 1500
+b) 2750
+c) 3000
+d) 3150
