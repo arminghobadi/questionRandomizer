@@ -5,9 +5,8 @@ var array;
 var questions = new Array();
 var x, y;
 var answers = new Array();
-var a = 4;
-var b = 5;
-var k = new Array();
+var a = 2;
+var b = 10;
 var test = new Array();
 var answersheet = new Array();
 
@@ -40,20 +39,29 @@ fs.readFile("./questions.txt", 'utf8', function read(err, data) {
 
   for (j = 0; j < a; j++)
   {
+    var m = new Array();
+    var n = new Array();
+
     for (i = 0; i < b; i++)
     {
-      var random = Math.floor(Math.random() * (+(questions.length - 1) - +0) + +0);
-      while (k.includes(random))
+      var numbersUsed = new Array();
+      var random = Math.floor(Math.random() * (+(questions.length) - +0) + +0);
+      while (numbersUsed.includes(random))
       {
-        random =  Math.floor(Math.random() * (+(questions.length - 1) - +0) + +0);
+        random =  Math.floor(Math.random() * (+(questions.length) - +0) + +0);
       }
-      k.push(random);
+      numbersUsed.push(random);
 
-      test.push(questions[random]);
-      answersheet.push(answers[random]);
+      m.push(questions[random]);
+      n.push(answers[random]);
+
+      test = m;
+      answersheet = n;
 
     }
     processFile();
+    console.log("\n");
+
   }
 
 
