@@ -41,10 +41,11 @@ fs.readFile("./questions.txt", 'utf8', function read(err, data) {
   {
     var m = new Array();
     var n = new Array();
+    var numbersUsed = new Array();
 
     for (i = 0; i < b; i++)
     {
-      var numbersUsed = new Array();
+
       var random = Math.floor(Math.random() * (+(questions.length) - +0) + +0);
       while (numbersUsed.includes(random))
       {
