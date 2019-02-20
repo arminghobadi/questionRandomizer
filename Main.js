@@ -5,6 +5,11 @@ var array;
 var questions = new Array();
 var x, y;
 var answers = new Array();
+var a = 4;
+var b = 5;
+var k = new Array();
+var test = new Array();
+var answersheet = new Array();
 
 
 fs.readFile("./questions.txt", 'utf8', function read(err, data) {
@@ -33,13 +38,31 @@ fs.readFile("./questions.txt", 'utf8', function read(err, data) {
     }
   }
 
-  processFile();
+  for (j = 0; j < a; j++)
+  {
+    for (i = 0; i < b; i++)
+    {
+      var random = Math.floor(Math.random() * (+(questions.length - 1) - +0) + +0);
+      while (k.includes(random))
+      {
+        random =  Math.floor(Math.random() * (+(questions.length - 1) - +0) + +0);
+      }
+      k.push(random);
+
+      test.push(questions[random]);
+      answersheet.push(answers[random]);
+
+    }
+    processFile();
+  }
+
+
 });
 
 
 function processFile () {
-  console.log(questions);
-  console.log(answers);
+  console.log(test);
+  console.log(answersheet);
 }
 
 /*
