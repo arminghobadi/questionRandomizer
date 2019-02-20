@@ -4,6 +4,7 @@ var content;
 var array;
 var questions = new Array();
 var x, y;
+var answers = new Array();
 
 fs.readFile('./questions.txt', 'utf8', function read(err, data) {
   if (err) {
@@ -17,14 +18,17 @@ fs.readFile('./questions.txt', 'utf8', function read(err, data) {
     if (Number.isInteger(parseInt(array[i].charAt(0))) == true)
     {
       x = array[i];
-      y = x;
       questions.push(x);
     }
-    else
+    else if (Number.isInteger(parseInt(array[i].charAt(0))) == false && array[i].charAt(0) != "Z")
     {
-      y = x;
       x += array[i];
-      questions.splice(y, 1, x);
+      questions[questions.length - 1] = x;
+    }
+    if (array[i].charAt(0) == "Z")
+    {
+      y = array[i];
+      answers.push(y);
     }
   }
 
@@ -32,5 +36,5 @@ fs.readFile('./questions.txt', 'utf8', function read(err, data) {
 });
 
 function processFile () {
-  console.log(questions);
+  console.log(answers);
 }
