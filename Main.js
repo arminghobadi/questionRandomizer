@@ -80,10 +80,11 @@ function makeTests(numberofVersions, numberofQuestions, nameofFile)
 
 function qanda (inV, inQ, inF)
 {
+  //console.log(process.argv[3])
   const { questions, answers } = makeTests(inV, inQ, inF)
 
   questions.forEach(function(question, index){
-    writeTests(`questionSetNo${index}`, question.join('\n').replace(/\r/g, '\n'))
+    writeTests(`questionSetNo${index}`, question.join('').replace(/\r/g, '\n'))
   })
 
   answers.forEach(function(answer, index) {
@@ -104,7 +105,7 @@ function writeTests(filename, data)
   });
 }
 
-qanda(2, 3, "questions.txt")
+qanda(process.argv[3], process.argv[4], process.argv[5]) // qanda (a, b, c) where a is number of versions, b is number of questions on tests and c is original text file with all questions.
 
 
 
