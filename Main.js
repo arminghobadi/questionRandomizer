@@ -84,7 +84,7 @@ function qanda (inV, inQ, inF)
   const { questions, answers } = makeTests(inV, inQ, inF)
 
   questions.forEach(function(question, index){
-    writeTests(`questionSetNo${index}`, question.join('').replace(/\r/g, '\n'))
+    writeTests(`questionSetNo${index}`, question.join('\n').replace(/\r/g, '\n'))
   })
 
   answers.forEach(function(answer, index) {
