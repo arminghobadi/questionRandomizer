@@ -5,16 +5,16 @@ var array;
 var questions = new Array();
 var x, y;
 var answers = new Array();
-var numberofVersions = 4;
-var numberofQuestions = 8;
+///var numberofVersions = 4;
+//var numberofQuestions = 8;
 var test = new Array();
 var answersheet = new Array();
 
-function makeTests()
+function makeTests(numberofVersions, numberofQuestions, nameofFile)
 {
   let myAnswerCollection = []
   let myQuestionCollection = []
-  const data = fs.readFileSync("./questions.txt", 'utf8')
+  const data = fs.readFileSync(`./${nameofFile}`, 'utf8')
     content = data;
     array = content.split('\n')
 
@@ -78,8 +78,9 @@ function makeTests()
 
 }
 
-function qanda(){
-  const { questions, answers } = makeTests()
+function qanda (inV, inQ, inF)
+{
+  const { questions, answers } = makeTests(inV, inQ, inF)
 
   questions.forEach(function(question, index){
     writeTests(`questionSetNo${index}`, question.join('\n').replace(/\r/g, '\n'))
@@ -103,7 +104,7 @@ function writeTests(filename, data)
   });
 }
 
-qanda()
+qanda(2, 3, "questions.txt")
 
 
 
