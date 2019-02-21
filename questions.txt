@@ -1,69 +1,24 @@
-1) What color is grass?
-a) Red
-b) Green
-c) Yellow
-d) Blue
-Z) Answer is (b).
+- What color is grass?
+Red
++ Green
+Yellow
+Blue
 
-2) How many eggs in a dozen?
-a) 5
-b) 7
-c) 2
-d) 12
-Z) Answer is (d).
+- How many eggs in a dozen?
+5
+7
+2
++ 12
 
-3) How many meters in 3 kilometers?
-a) 1500
-b) 2750
-c) 3000
-d) 3150
-Z) Answer is (c).
+- How many meters in 3 kilometers?
+1500
+2750
++ 3000
+3150
 
-4) What is 2 + 2 x 2?
-a) 4
-b) 6
-c) 8
-d) 10
-Z) Answer is (b).
 
-5) What is love?
-a) Baby
-b) Don't
-c) Hurt
-d) Me
-Z) All options are correct.
-
-6) How many therapists does it take to change a light bulb?
-a) 0
-b) 1
-c) 2
-d) 3
-Z) Answer is (a).
-
-7) What came first, the chicken or the egg?
-a) The chicken
-b) The egg
-c) Neither
-d) Why are you like this?
-Z) Answer is (d).
-
-8) If a tree falls in a forest, but no one is there to hear it. Does it make any noise?
-a) Yes
-b) No
-c) There is no way to tell
-d) 2/10, no dead cats involved
-Z) If I knew the answer I wouldn't be asking you this question.
-
-9) Which direction is East of North?
-a) North
-b) South
-c) East
-d) West
-Z) Answer is (c).
-
-10) Have you subscribed to our lord and savior Pewdiepie?
-a) Yes
-b) Of course
-c) Indeed
-d) I will right after this is over
-Z) All options are correct.
+- What is 2 + 2 x 2?
+4
++ 6
+8
+10

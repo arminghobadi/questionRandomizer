@@ -1,114 +1,89 @@
 const fs = require('fs')
 
-var content;
-var array;
-var questions = new Array();
-var x, y;
-var answers = new Array();
-var numberofVersions = 4;
-var numberofQuestions = 8;
-var test = new Array();
-var answersheet = new Array();
+const promiseRead = () => 
+  new Promise( (resolve, reject) => {
+    fs.readFile('./questions.txt', 'utf8', (err, data)=>{
+      if (err) reject(err)
+      resolve(data)
+    })
+  })
 
-function makeTests()
-{
-  let myAnswerCollection = []
-  let myQuestionCollection = []
-  const data = fs.readFileSync("./questions.txt", 'utf8')
-    content = data;
-    array = content.split('\n')
-
-    for (i = 0; i < array.length; i++)
-    {
-      if (Number.isInteger(parseInt(array[i].charAt(0))) == true)
-      {
-        x = array[i];
-        questions.push(x);
+const parseQuestionare = async () => {
+  try{
+    const rawData = await promiseRead()
+    const processedData = rawData.split('\n').reduce((acc, item)=>{
+      //console.log(item)
+      if (!item){
+        return acc
       }
-      else if (Number.isInteger(parseInt(array[i].charAt(0))) == false && array[i].charAt(0) != "Z")
-      {
-        x += array[i];
-        questions[questions.length - 1] = x;
+      if (item[0] == '-'){
+        acc.currentQuestion = item
+        acc[acc.currentQuestion] = {}
       }
-      if (array[i].charAt(0) == "Z")
-      {
-        y = array[i];
-        answers.push(y);
-      }
-    }
-
-    for (j = 0; j < numberofVersions; j++)
-    {
-      var tempQue = new Array();
-      var tempAns = new Array();
-      var numbersUsed = new Array();
-
-      for (i = 0; i < numberofQuestions; i++)
-      {
-
-        var random = Math.floor(Math.random() * (+(questions.length) - +0) + +0);
-        while (numbersUsed.includes(random))
-        {
-          random =  Math.floor(Math.random() * (+(questions.length) - +0) + +0);
+      else if ( acc.currentQuestion && acc[acc.currentQuestion]){
+        //console.log('asdfasdfasdfasfas')
+        if (item[0] == '+'){
+          
+          acc[acc.currentQuestion][item.substr(2)] = true
+          //console.log('asdfasdfasdfasfas')
         }
-        numbersUsed.push(random);
-
-        tempQue.push(questions[random]);
-        tempAns.push(answers[random]);
-
-        test = tempQue;
-        answersheet = tempAns;
-
+        else{
+          acc[acc.currentQuestion][item] = false
+        }
       }
+      return acc
+    }, {currentQuestion: ''})
+    //console.log(processedData[processedData.currentQuestion])
+    delete processedData.currentQuestion
+    parseString(processedData)
+  }catch(e){
+    console.log(e)
+  }
+  
+}
 
-      for (k = 0; k < test.length; k++)
-      {
-        var re = /[0-9]+/;
-        test[k] = test[k].replace(re, k + 1);
-        answersheet[k] = answersheet[k].replace("Z)", "A" + (k + 1) + ")");
-      }
+const shuffle = (array) => {
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-      processFile();
-      console.log("\n");
-      myAnswerCollection.push(answersheet)
-      myQuestionCollection.push(test)
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
 
-  };
-  return { questions: myQuestionCollection, answers: myAnswerCollection }
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
+const parseString = (dataObj) => {
+  const questions = Object.keys(dataObj)
+  const randomizedQuestions = shuffle(questions)
+  const questionSheet = []
+  const answerSheet = []
+
+  randomizedQuestions.forEach( ( question )=>{
+    const correspondigChoices = dataObj[question]
+    console.log('aaaaa',correspondigChoices)
+  } )
+
+  // questions.reduce((acc, item, qindex)=>{
+  //   questionSheet.push(item)
+  //   Object.keys(answers[qindex]).forEach( (ans, aindex) => {
+  //     if (answers[qindex][ans]){
+  //       answerSheet.push(`q${qindex+1} answer: ${aindex}`)
+  //       questionSheet.push(`${aindex+1})${ans}`)
+  //     }
+  //   })
+  //   return acc
+  // },{})
 
 }
 
-function qanda(){
-  const { questions, answers } = makeTests()
-
-  questions.forEach(function(question, index){
-    writeTests(`questionSetNo${index}`, question.join('\n').replace(/\r/g, '\n'))
-  })
-
-  answers.forEach(function(answer, index) {
-    writeTests(`answerSetNo${index}` , answer.join('\n').replace(/\r/g, '\n'))
-  })
-  // writeTests('myFirstSetOfQuestions',questions.join('').toString())
-  // writeTests('myFirstSetOfAnswers', answers.join('').toString())
-}
-
-
-function writeTests(filename, data)
-{
-  fs.writeFile(filename, data, "utf8", function (err) {
-    if (err) throw err
-
-    console.log("File created successfully.")
-
-  });
-}
-
-qanda()
-
-
-
-
-function processFile () {
-  console.log(test);
-  console.log(answersheet);
-}
+parseQuestionare()
