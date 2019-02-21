@@ -5,103 +5,94 @@ var array;
 var questions = new Array();
 var x, y;
 var answers = new Array();
-var a = 2;
-var b = 10;
+var numberofVersions = 4;
+var numberofQuestions = 6;
 var test = new Array();
 var answersheet = new Array();
 
-
-fs.readFile("./questions.txt", 'utf8', function read(err, data) {
-  if (err) {
-    throw err;
-  }
-  content = data;
-  array = content.split('\n')
-
-  for (i = 0; i < array.length; i++)
-  {
-    if (Number.isInteger(parseInt(array[i].charAt(0))) == true)
-    {
-      x = array[i];
-      questions.push(x);
+function makeTests()
+{
+  fs.readFile("./questions.txt", 'utf8', function read(err, data) {
+    if (err) {
+      throw err;
     }
-    else if (Number.isInteger(parseInt(array[i].charAt(0))) == false && array[i].charAt(0) != "Z")
-    {
-      x += array[i];
-      questions[questions.length - 1] = x;
-    }
-    if (array[i].charAt(0) == "Z")
-    {
-      y = array[i];
-      answers.push(y);
-    }
-  }
+    content = data;
+    array = content.split('\n')
 
-  for (j = 0; j < a; j++)
-  {
-    var m = new Array();
-    var n = new Array();
-    var numbersUsed = new Array();
-
-    for (i = 0; i < b; i++)
+    for (i = 0; i < array.length; i++)
     {
-
-      var random = Math.floor(Math.random() * (+(questions.length) - +0) + +0);
-      while (numbersUsed.includes(random))
+      if (Number.isInteger(parseInt(array[i].charAt(0))) == true)
       {
-        random =  Math.floor(Math.random() * (+(questions.length) - +0) + +0);
+        x = array[i];
+        questions.push(x);
       }
-      numbersUsed.push(random);
+      else if (Number.isInteger(parseInt(array[i].charAt(0))) == false && array[i].charAt(0) != "Z")
+      {
+        x += array[i];
+        questions[questions.length - 1] = x;
+      }
+      if (array[i].charAt(0) == "Z")
+      {
+        y = array[i];
+        answers.push(y);
+      }
+    }
 
-      m.push(questions[random]);
-      n.push(answers[random]);
+    for (j = 0; j < numberofVersions; j++)
+    {
+      var tempQue = new Array();
+      var tempAns = new Array();
+      var numbersUsed = new Array();
 
-      test = m;
-      answersheet = n;
+      for (i = 0; i < numberofQuestions; i++)
+      {
+
+        var random = Math.floor(Math.random() * (+(questions.length) - +0) + +0);
+        while (numbersUsed.includes(random))
+        {
+          random =  Math.floor(Math.random() * (+(questions.length) - +0) + +0);
+        }
+        numbersUsed.push(random);
+
+        tempQue.push(questions[random]);
+        tempAns.push(answers[random]);
+
+        test = tempQue;
+        answersheet = tempAns;
+
+      }
+
+      for (k = 0; k < test.length; k++)
+      {
+        var re = /[0-9]+/;
+        test[k] = test[k].replace(re, k + 1);
+        answersheet[k] = answersheet[k].replace("Z)", "A" + (k + 1) + ")");
+      }
+
+      processFile();
+      console.log("\n");
 
     }
-    processFile();
-    console.log("\n");
-
-  }
+  });
+}
 
 
-});
+function writeTests()
+{
+  fs.writeFile('Tests', makeTests(), "utf8", function (err) {
+    if (err) throw err
+
+    console.log("File created successfully.")
+
+  });
+}
+
+makeTests()
+
+
 
 
 function processFile () {
   console.log(test);
   console.log(answersheet);
 }
-
-/*
-function MakeTests (var a, var b, var c)    //Where a is number of test versions. b is number of questions per test. and c is test question document.
-{
-  documentReader("./" + c);
-  var k = new Array();
-  var test = new Array();
-  var answersheet = new Array();
-
-  for (i = 0; i < a; i++)
-  {
-    for (i = 0; i < b; i++)
-    {
-      var random = Math.floor(Math.random() * (+(questions.length - 1) - +0) + +0);
-      while (k.includes(random))
-      {
-        random =  Math.floor(Math.random() * (+(questions.length - 1) - +0) + +0);
-      }
-      k.push(random);
-
-      test.push(questions[random]);
-      answersheet.push(answers[random]);
-
-    }
-    System.out.println(test);
-    System.out.println(answersheet);
-
-    console.log(test);
-    console.log(answersheet);
-  }
-}
-*/

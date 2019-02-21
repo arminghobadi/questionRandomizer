@@ -38,14 +38,14 @@ a) 0
 b) 1
 c) 2
 d) 3
-Z) The answer is (a).
+Z) Answer is (a).
 
 7) What came first, the chicken or the egg?
 a) The chicken
 b) The egg
 c) Neither
 d) Why are you like this?
-Z) The answer is (d).
+Z) Answer is (d).
 
 8) If a tree falls in a forest, but no one is there to hear it. Does it make any noise?
 a) Yes
@@ -59,11 +59,11 @@ a) North
 b) South
 c) East
 d) West
-Z) The answer is (c).
+Z) Answer is (c).
 
 10) Have you subscribed to our lord and savior Pewdiepie?
 a) Yes
 b) Of course
 c) Indeed
 d) I will right after this is over
-Z) All answers are correct.
+Z) All options are correct.
