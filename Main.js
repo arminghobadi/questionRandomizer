@@ -6,16 +6,15 @@ var questions = new Array();
 var x, y;
 var answers = new Array();
 var numberofVersions = 4;
-var numberofQuestions = 6;
+var numberofQuestions = 8;
 var test = new Array();
 var answersheet = new Array();
 
 function makeTests()
 {
-  fs.readFile("./questions.txt", 'utf8', function read(err, data) {
-    if (err) {
-      throw err;
-    }
+  let myAnswerCollection = []
+  let myQuestionCollection = []
+  const data = fs.readFileSync("./questions.txt", 'utf8')
     content = data;
     array = content.split('\n')
 
@@ -71,15 +70,32 @@ function makeTests()
 
       processFile();
       console.log("\n");
+      myAnswerCollection.push(answersheet)
+      myQuestionCollection.push(test)
 
-    }
-  });
+  };
+  return { questions: myQuestionCollection, answers: myAnswerCollection }
+
+}
+
+function qanda(){
+  const { questions, answers } = makeTests()
+
+  questions.forEach(function(question, index){
+    writeTests(`questionSetNo${index}`, question.join('\n').replace(/\r/g, '\n'))
+  })
+
+  answers.forEach(function(answer, index) {
+    writeTests(`answerSetNo${index}` , answer.join('\n').replace(/\r/g, '\n'))
+  })
+  // writeTests('myFirstSetOfQuestions',questions.join('').toString())
+  // writeTests('myFirstSetOfAnswers', answers.join('').toString())
 }
 
 
-function writeTests()
+function writeTests(filename, data)
 {
-  fs.writeFile('Tests', makeTests(), "utf8", function (err) {
+  fs.writeFile(filename, data, "utf8", function (err) {
     if (err) throw err
 
     console.log("File created successfully.")
@@ -87,7 +103,7 @@ function writeTests()
   });
 }
 
-makeTests()
+qanda()
 
 
 
